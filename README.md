@@ -24,3 +24,10 @@ So when combined as "amqp://guest:guest@localhost:5672", it creates a connection
 - Use the AMQP protocol
 - Connect to a broker running on localhost at port 5672
 - Authenticate using the username "guest" and password "guest" (these are default credentials in RabbitMQ)
+
+## Images
+### Simulation Slow Subscriber
+According to the image below, the number of peak queue is 35. This could happen because eEach message takes at least 1 second to process due to the `thread::sleep(ten_millis)` call. If messages are being published faster than once per second, they will naturally pile up in the queue because:
+- Publisher: Can send messages without waiting
+- Subscriber: Takes 1 second per message to process
+![Simulation Slow Subscriber](/public/SlowSubscriber.png)
